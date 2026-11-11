@@ -1,0 +1,18 @@
+.header {
+  text-align: center;
+  padding: 30px 20px 20px;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e1e1e;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.header-desc {
+  font-size: 14px;
+  color: #666;
+  display: block;
+}

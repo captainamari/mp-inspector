@@ -1,0 +1,73 @@
+<view class="mp-inspector-storage" wx:if="{{visible}}">
+
+  <!-- 列表视图 -->
+  <view wx:if="{{!showDetail}}" class="mp-inspector-storage-main">
+    <!-- 顶部信息栏 -->
+    <view class="mp-inspector-storage-toolbar">
+      <text class="mp-inspector-storage-info" wx:if="{{storageInfo}}">
+        {{storageInfo.count}} keys · {{storageInfo.currentSize}}KB / {{storageInfo.limitSize}}KB ({{storageInfo.usagePercent}}%)
+      </text>
+      <view class="mp-inspector-storage-toolbar-spacer"></view>
+      <view class="mp-inspector-storage-refresh" catchtap="refresh">
+        <text>🔄</text>
+      </view>
+    </view>
+
+    <!-- Storage 列表 -->
+    <scroll-view class="mp-inspector-storage-list" scroll-y enhanced show-scrollbar="{{false}}">
+      <view
+        wx:for="{{items}}"
+        wx:key="key"
+        class="mp-inspector-storage-item"
+        data-index="{{index}}"
+        catchtap="onSelectItem"
+      >
+        <view class="mp-inspector-storage-item-row">
+          <text class="mp-inspector-storage-item-key">{{item.key}}</text>
+          <text class="mp-inspector-storage-item-type">[{{item.valueType}}]</text>
+        </view>
+        <text class="mp-inspector-storage-item-preview">{{item.valueStr}}</text>
+      </view>
+
+      <view wx:if="{{items.length === 0}}" class="mp-inspector-storage-empty">
+        <text class="mp-inspector-storage-empty-text">No storage data</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 详情视图 -->
+  <view wx:if="{{showDetail && selectedItem}}" class="mp-inspector-storage-detail">
+    <view class="mp-inspector-storage-detail-header">
+      <view class="mp-inspector-storage-detail-back" catchtap="onCloseDetail">
+        <text>← Back</text>
+      </view>
+      <view class="mp-inspector-storage-detail-actions">
+        <view class="mp-inspector-storage-detail-btn" catchtap="onCopyValue">
+          <text>Copy</text>
+        </view>
+        <view class="mp-inspector-storage-detail-btn mp-inspector-storage-detail-btn-danger" catchtap="onRemoveItem" data-key="{{selectedItem.key}}">
+          <text>Delete</text>
+        </view>
+      </view>
+    </view>
+
+    <scroll-view class="mp-inspector-storage-detail-content" scroll-y enhanced show-scrollbar="{{false}}">
+      <view class="mp-inspector-storage-detail-kv">
+        <text class="mp-inspector-storage-detail-label">Key</text>
+        <text class="mp-inspector-storage-detail-value" user-select>{{selectedItem.key}}</text>
+      </view>
+      <view class="mp-inspector-storage-detail-kv">
+        <text class="mp-inspector-storage-detail-label">Type</text>
+        <text class="mp-inspector-storage-detail-value">{{selectedItem.valueType}}</text>
+      </view>
+      <view class="mp-inspector-storage-detail-kv">
+        <text class="mp-inspector-storage-detail-label">Size</text>
+        <text class="mp-inspector-storage-detail-value">{{selectedItem.size}} chars</text>
+      </view>
+      <view class="mp-inspector-storage-detail-data">
+        <text class="mp-inspector-storage-detail-label">Value</text>
+        <text class="mp-inspector-storage-code-block" user-select>{{selectedItem.valueStr}}</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

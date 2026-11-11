@@ -1,0 +1,155 @@
+<view class="mp-inspector-network" wx:if="{{visible}}">
+
+  <!-- 请求列表（非详情状态） -->
+  <view wx:if="{{!showDetail}}" class="mp-inspector-network-main">
+    <!-- 顶部操作栏 -->
+    <view class="mp-inspector-network-toolbar">
+      <text class="mp-inspector-network-count">{{requests.length}} requests</text>
+      <view class="mp-inspector-network-toolbar-spacer"></view>
+      <view class="mp-inspector-network-clear" catchtap="onClear">
+        <text class="mp-inspector-network-clear-icon">🗑</text>
+      </view>
+    </view>
+
+    <!-- 请求列表 -->
+    <scroll-view
+      class="mp-inspector-network-list"
+      scroll-y
+      scroll-into-view="{{scrollToView}}"
+      scroll-with-animation
+      enhanced
+      show-scrollbar="{{false}}"
+    >
+      <view
+        wx:for="{{requests}}"
+        wx:key="id"
+        id="req-{{item.id}}"
+        class="mp-inspector-network-item mp-inspector-network-status-{{item.statusType}}"
+        data-index="{{index}}"
+        catchtap="onSelectRequest"
+      >
+        <view class="mp-inspector-network-item-row1">
+          <text class="mp-inspector-network-item-method">{{item.method}}</text>
+          <text class="mp-inspector-network-item-url">{{item.shortUrl}}</text>
+        </view>
+        <view class="mp-inspector-network-item-row2">
+          <text class="mp-inspector-network-item-status mp-inspector-network-code-{{item.statusType}}">{{item.statusCode}}</text>
+          <text class="mp-inspector-network-item-duration">{{item.durationStr}}</text>
+          <text class="mp-inspector-network-item-size">{{item.responseSize}}</text>
+          <text class="mp-inspector-network-item-time">{{item.startTimeStr}}</text>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view wx:if="{{requests.length === 0}}" class="mp-inspector-network-empty">
+        <text class="mp-inspector-network-empty-text">No requests yet</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 请求详情 -->
+  <view wx:if="{{showDetail && selectedRequest}}" class="mp-inspector-network-detail">
+    <!-- 详情头部 -->
+    <view class="mp-inspector-network-detail-header">
+      <view class="mp-inspector-network-detail-back" catchtap="onCloseDetail">
+        <text>← Back</text>
+      </view>
+      <view class="mp-inspector-network-detail-copy" catchtap="onCopyRequest">
+        <text>Copy</text>
+      </view>
+    </view>
+
+    <!-- 详情 Tab -->
+    <view class="mp-inspector-network-detail-tabs">
+      <view
+        wx:for="{{detailTabs}}"
+        wx:key="key"
+        class="mp-inspector-network-detail-tab {{detailTab === item.key ? 'active' : ''}}"
+        data-tab="{{item.key}}"
+        catchtap="onDetailTabChange"
+      >
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+
+    <!-- 详情内容 -->
+    <scroll-view class="mp-inspector-network-detail-content" scroll-y enhanced show-scrollbar="{{false}}">
+
+      <!-- General -->
+      <view wx:if="{{detailTab === 'general'}}" class="mp-inspector-network-detail-section">
+        <view class="mp-inspector-network-kv">
+          <text class="mp-inspector-network-kv-key">URL</text>
+          <text class="mp-inspector-network-kv-value" user-select>{{selectedRequest.url}}</text>
+        </view>
+        <view class="mp-inspector-network-kv">
+          <text class="mp-inspector-network-kv-key">Method</text>
+          <text class="mp-inspector-network-kv-value">{{selectedRequest.method}}</text>
+        </view>
+        <view class="mp-inspector-network-kv">
+          <text class="mp-inspector-network-kv-key">Status</text>
+          <text class="mp-inspector-network-kv-value mp-inspector-network-code-{{selectedRequest.statusType}}">{{selectedRequest.statusCode}}</text>
+        </view>
+        <view class="mp-inspector-network-kv">
+          <text class="mp-inspector-network-kv-key">Duration</text>
+          <text class="mp-inspector-network-kv-value">{{selectedRequest.durationStr || 'Pending...'}}</text>
+        </view>
+        <view class="mp-inspector-network-kv">
+          <text class="mp-inspector-network-kv-key">Size</text>
+          <text class="mp-inspector-network-kv-value">{{selectedRequest.responseSize || '-'}}</text>
+        </view>
+        <view wx:if="{{selectedRequest.errMsg}}" class="mp-inspector-network-kv">
+          <text class="mp-inspector-network-kv-key">Error</text>
+          <text class="mp-inspector-network-kv-value mp-inspector-network-code-fail" user-select>{{selectedRequest.errMsg}}</text>
+        </view>
+      </view>
+
+      <!-- Request Headers -->
+      <view wx:if="{{detailTab === 'reqHeaders'}}" class="mp-inspector-network-detail-section">
+        <view wx:if="{{selectedRequest.requestHeaderList.length === 0}}" class="mp-inspector-network-detail-empty">
+          <text>No request headers</text>
+        </view>
+        <view
+          wx:for="{{selectedRequest.requestHeaderList}}"
+          wx:key="key"
+          class="mp-inspector-network-kv"
+        >
+          <text class="mp-inspector-network-kv-key">{{item.key}}</text>
+          <text class="mp-inspector-network-kv-value" user-select>{{item.value}}</text>
+        </view>
+      </view>
+
+      <!-- Request Body -->
+      <view wx:if="{{detailTab === 'reqBody'}}" class="mp-inspector-network-detail-section">
+        <view wx:if="{{!selectedRequest.requestDataFormatted}}" class="mp-inspector-network-detail-empty">
+          <text>No request body</text>
+        </view>
+        <text wx:else class="mp-inspector-network-code-block" user-select>{{selectedRequest.requestDataFormatted}}</text>
+      </view>
+
+      <!-- Response -->
+      <view wx:if="{{detailTab === 'response'}}" class="mp-inspector-network-detail-section">
+        <!-- Response Headers -->
+        <view wx:if="{{selectedRequest.responseHeaderList.length > 0}}" class="mp-inspector-network-resp-headers">
+          <text class="mp-inspector-network-section-title">Response Headers</text>
+          <view
+            wx:for="{{selectedRequest.responseHeaderList}}"
+            wx:key="key"
+            class="mp-inspector-network-kv"
+          >
+            <text class="mp-inspector-network-kv-key">{{item.key}}</text>
+            <text class="mp-inspector-network-kv-value" user-select>{{item.value}}</text>
+          </view>
+        </view>
+        <!-- Response Body -->
+        <view class="mp-inspector-network-resp-body">
+          <text class="mp-inspector-network-section-title">Response Body</text>
+          <view wx:if="{{!selectedRequest.responseDataFormatted}}" class="mp-inspector-network-detail-empty">
+            <text>{{selectedRequest.status === 'pending' ? 'Waiting for response...' : 'No response data'}}</text>
+          </view>
+          <text wx:else class="mp-inspector-network-code-block" user-select>{{selectedRequest.responseDataFormatted}}</text>
+        </view>
+      </view>
+
+    </scroll-view>
+  </view>
+</view>

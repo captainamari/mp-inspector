@@ -1,0 +1,131 @@
+/* ============================
+   MpInspector 主面板样式
+   ============================ */
+
+/* 遮罩层 */
+.mp-inspector-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 99998;
+}
+
+/* 主面板 */
+.mp-inspector-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  background: #1e1e1e;
+  border-top: 1px solid #3c3c3c;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* 弹出动画 */
+.mp-inspector-panel-slide-in {
+  animation: mpDebugSlideIn 0.2s ease-out forwards;
+}
+
+.mp-inspector-panel-slide-out {
+  animation: mpDebugSlideOut 0.2s ease-in forwards;
+}
+
+@keyframes mpDebugSlideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes mpDebugSlideOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* 面板头部 */
+.mp-inspector-panel-header {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 4px;
+  background: #2d2d2d;
+  border-bottom: 1px solid #3c3c3c;
+  flex-shrink: 0;
+}
+
+/* Tab 栏 */
+.mp-inspector-panel-tabs {
+  display: flex;
+  flex: 1;
+  height: 100%;
+}
+
+.mp-inspector-panel-tab {
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.mp-inspector-panel-tab text {
+  font-size: 13px;
+  color: #999;
+  font-weight: 500;
+}
+
+.mp-inspector-panel-tab.active text {
+  color: #fff;
+}
+
+.mp-inspector-panel-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 2px;
+  background: #0e639c;
+  border-radius: 1px;
+}
+
+/* 关闭按钮 */
+.mp-inspector-panel-close {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mp-inspector-panel-close-icon {
+  font-size: 16px;
+  color: #999;
+}
+
+/* 面板内容区 */
+.mp-inspector-panel-body {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}

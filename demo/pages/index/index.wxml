@@ -1,0 +1,60 @@
+<view class="container">
+  <!-- 标题 -->
+  <view class="header">
+    <text class="header-title">MP Inspector</text>
+    <text class="header-desc">点击右下角悬浮按钮打开调试面板</text>
+  </view>
+
+  <!-- Console 测试区 -->
+  <view class="section">
+    <text class="section-title">📋 Console 测试</text>
+    <button class="btn btn-primary" bindtap="onTestLog">console.log</button>
+    <button class="btn btn-info" bindtap="onTestInfo">console.info</button>
+    <button class="btn btn-warning" bindtap="onTestWarn">console.warn</button>
+    <button class="btn btn-danger" bindtap="onTestError">console.error</button>
+    <button class="btn btn-default" bindtap="onTestObject">输出复杂对象</button>
+    <text class="tip-text">点击按钮后，打开调试面板的 Console Tab 查看日志</text>
+  </view>
+
+  <!-- 错误捕获测试区 -->
+  <view class="section">
+    <text class="section-title">⚠️ 错误捕获测试</text>
+    <button class="btn btn-danger" bindtap="onTestRuntimeError">触发运行时错误</button>
+    <button class="btn btn-warning" bindtap="onTestPromiseRejection">触发 Promise 拒绝</button>
+    <text class="tip-text">捕获的错误会自动显示在 Console 面板中</text>
+  </view>
+
+  <!-- Network 测试区 -->
+  <view class="section">
+    <text class="section-title">🌐 Network 测试 (已发送 {{requestCount}} 个请求)</text>
+    <button class="btn btn-primary" bindtap="onTestGetRequest">GET 请求 (200)</button>
+    <button class="btn btn-info" bindtap="onTestPostRequest">POST 请求 (带请求体)</button>
+    <button class="btn btn-danger" bindtap="onTestFailRequest">500 请求</button>
+    <button class="btn btn-warning" bindtap="onTestNotFoundRequest">404 请求</button>
+    <text class="tip-text">点击按钮后，打开调试面板的 Network Tab 查看请求详情</text>
+  </view>
+
+  <!-- Storage 测试区 -->
+  <view class="section">
+    <text class="section-title">💾 Storage 测试</text>
+    <button class="btn btn-primary" bindtap="onTestWriteStorage">写入测试数据</button>
+    <text class="tip-text">打开调试面板的 Storage Tab 查看本地存储数据</text>
+  </view>
+
+  <view class="section">
+    <text class="section-title">面板生命周期</text>
+    <button class="btn btn-primary" bindtap="onShowInspector">显示入口</button>
+    <button class="btn btn-default" bindtap="onHideInspector">隐藏入口（继续采集）</button>
+    <button class="btn btn-warning" bindtap="onRestartInspector">销毁并重新初始化</button>
+  </view>
+
+  <!-- 跨页面测试 -->
+  <view class="section">
+    <text class="section-title">📄 跨页面测试</text>
+    <button class="btn btn-info" bindtap="onGoToDetail">跳转到详情页</button>
+    <text class="tip-text">验证跨页面的日志和请求记录是否保持</text>
+  </view>
+</view>
+
+<!-- 调试面板组件（全局注册，直接使用） -->
+<mp-inspector />

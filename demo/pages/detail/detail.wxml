@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="header">
+    <text class="header-title">📄 详情页</text>
+    <text class="header-desc">ID: {{id}} · Name: {{name}}</text>
+  </view>
+
+  <view class="section">
+    <text class="section-title">跨页面测试</text>
+    <text class="tip-text">此页面加载时会自动发起一个 GET 请求，打开 Network 面板可以看到</text>
+    <button class="btn btn-primary" bindtap="onTestDetailLog">输出详情页日志</button>
+    <button class="btn btn-default" bindtap="onGoBack">返回首页</button>
+  </view>
+</view>
+
+<!-- 调试面板组件 -->
+<mp-inspector />

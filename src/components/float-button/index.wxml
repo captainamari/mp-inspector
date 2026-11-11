@@ -1,0 +1,19 @@
+<movable-area wx:if="{{visible}}" class="mp-inspector-float-area" style="width:{{areaWidth}}px;height:{{areaHeight}}px;">
+  <movable-view
+    class="mp-inspector-float-btn"
+    direction="all"
+    x="{{x}}"
+    y="{{y}}"
+    damping="40"
+    friction="5"
+    style="width:{{btnSize}}px;height:{{btnSize}}px;"
+    catchtap="onTap"
+  >
+    <view class="mp-inspector-float-inner">
+      <text class="mp-inspector-float-icon">🛠</text>
+    </view>
+    <view wx:if="{{badgeCount > 0}}" class="mp-inspector-float-badge">
+      <text class="mp-inspector-float-badge-text">{{badgeCount > 99 ? '99+' : badgeCount}}</text>
+    </view>
+  </movable-view>
+</movable-area>
