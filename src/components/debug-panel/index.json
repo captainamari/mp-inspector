@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "float-button": "../float-button/index",
+    "console-panel": "../console-panel/index",
+    "network-panel": "../network-panel/index",
+    "storage-panel": "../storage-panel/index"
+  }
+}

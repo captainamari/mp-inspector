@@ -1,0 +1,264 @@
+.mp-inspector-network {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #1e1e1e;
+}
+
+.mp-inspector-network-main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 工具栏 */
+.mp-inspector-network-toolbar {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 10px;
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  flex-shrink: 0;
+}
+
+.mp-inspector-network-count {
+  font-size: 12px;
+  color: #999;
+}
+
+.mp-inspector-network-toolbar-spacer {
+  flex: 1;
+}
+
+.mp-inspector-network-clear {
+  padding: 4px 8px;
+}
+
+.mp-inspector-network-clear-icon {
+  font-size: 14px;
+}
+
+/* 请求列表 */
+.mp-inspector-network-list {
+  flex: 1;
+  overflow: hidden;
+}
+
+.mp-inspector-network-item {
+  padding: 8px 10px;
+  border-bottom: 1px solid #2d2d2d;
+}
+
+.mp-inspector-network-item-row1 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.mp-inspector-network-item-method {
+  font-size: 11px;
+  color: #569cd6;
+  font-weight: 600;
+  margin-right: 8px;
+  flex-shrink: 0;
+  min-width: 36px;
+}
+
+.mp-inspector-network-item-url {
+  font-size: 12px;
+  color: #d4d4d4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.mp-inspector-network-item-row2 {
+  display: flex;
+  align-items: center;
+}
+
+.mp-inspector-network-item-status {
+  font-size: 11px;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.mp-inspector-network-item-duration {
+  font-size: 11px;
+  color: #999;
+  margin-right: 10px;
+}
+
+.mp-inspector-network-item-size {
+  font-size: 11px;
+  color: #666;
+  margin-right: 10px;
+}
+
+.mp-inspector-network-item-time {
+  font-size: 10px;
+  color: #555;
+  margin-left: auto;
+}
+
+/* 状态码颜色 */
+.mp-inspector-network-code-success {
+  color: #4caf50;
+}
+
+.mp-inspector-network-code-redirect {
+  color: #2196f3;
+}
+
+.mp-inspector-network-code-client-error {
+  color: #ff9800;
+}
+
+.mp-inspector-network-code-server-error {
+  color: #f44336;
+}
+
+.mp-inspector-network-code-pending {
+  color: #999;
+}
+
+.mp-inspector-network-code-fail {
+  color: #f44336;
+}
+
+.mp-inspector-network-code-unknown {
+  color: #999;
+}
+
+/* 详情页 */
+.mp-inspector-network-detail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mp-inspector-network-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  padding: 0 10px;
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  flex-shrink: 0;
+}
+
+.mp-inspector-network-detail-back text,
+.mp-inspector-network-detail-copy text {
+  font-size: 12px;
+  color: #3794ff;
+}
+
+/* 详情 Tab */
+.mp-inspector-network-detail-tabs {
+  display: flex;
+  height: 32px;
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  flex-shrink: 0;
+}
+
+.mp-inspector-network-detail-tab {
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+}
+
+.mp-inspector-network-detail-tab text {
+  font-size: 11px;
+  color: #999;
+}
+
+.mp-inspector-network-detail-tab.active {
+  border-bottom: 2px solid #0e639c;
+}
+
+.mp-inspector-network-detail-tab.active text {
+  color: #fff;
+}
+
+/* 详情内容 */
+.mp-inspector-network-detail-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.mp-inspector-network-detail-section {
+  padding: 10px;
+}
+
+.mp-inspector-network-kv {
+  display: flex;
+  padding: 4px 0;
+  border-bottom: 1px solid #2d2d2d;
+}
+
+.mp-inspector-network-kv-key {
+  font-size: 11px;
+  color: #9cdcfe;
+  width: 100px;
+  flex-shrink: 0;
+  word-break: break-all;
+}
+
+.mp-inspector-network-kv-value {
+  font-size: 11px;
+  color: #d4d4d4;
+  word-break: break-all;
+  flex: 1;
+}
+
+.mp-inspector-network-code-block {
+  font-size: 11px;
+  color: #ce9178;
+  word-break: break-all;
+  font-family: monospace;
+  white-space: pre-wrap;
+  padding: 8px;
+  background: #252526;
+  border-radius: 4px;
+  line-height: 1.5;
+}
+
+.mp-inspector-network-section-title {
+  font-size: 12px;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.mp-inspector-network-resp-headers {
+  margin-bottom: 16px;
+}
+
+.mp-inspector-network-detail-empty {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.mp-inspector-network-detail-empty text {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 空状态 */
+.mp-inspector-network-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+}
+
+.mp-inspector-network-empty-text {
+  color: #666;
+  font-size: 13px;
+}

@@ -1,0 +1,30 @@
+name: 问题反馈
+description: 提供可复现的问题和运行环境
+body:
+  - type: input
+    id: version
+    attributes:
+      label: SDK 版本与构建
+      placeholder: 例如 1.0.0 Full
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 运行环境
+      description: 基础库、开发者工具或真机、微信版本、系统与设备
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤或最小示例
+      description: 使用可公开的测试数据，不要包含真实账号、令牌或内部接口
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 预期与实际表现
+    validations:
+      required: true

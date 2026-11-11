@@ -1,0 +1,52 @@
+<view wx:if="{{enabled}}">
+  <!-- 悬浮按钮 -->
+  <float-button
+    visible="{{showButton && !panelVisible}}"
+    position="{{buttonPosition}}"
+    badgeCount="{{badgeCount}}"
+    bind:tap="onTogglePanel"
+  />
+
+  <!-- 面板遮罩 -->
+  <view
+    wx:if="{{panelVisible}}"
+    class="mp-inspector-mask"
+    catchtap="hidePanel"
+  ></view>
+
+  <!-- 主面板 -->
+  <view
+    wx:if="{{panelVisible}}"
+    class="mp-inspector-panel {{animationClass}}"
+    style="height:{{panelHeight}}px;"
+    catchtouchmove="onPreventTouchMove"
+  >
+    <!-- 面板头部 -->
+    <view class="mp-inspector-panel-header">
+      <!-- Tab 栏 -->
+      <view class="mp-inspector-panel-tabs">
+        <view
+          wx:for="{{tabs}}"
+          wx:key="key"
+          class="mp-inspector-panel-tab {{activeTab === item.key ? 'active' : ''}}"
+          data-tab="{{item.key}}"
+          catchtap="onTabChange"
+        >
+          <text>{{item.label}}</text>
+        </view>
+      </view>
+
+      <!-- 关闭按钮 -->
+      <view class="mp-inspector-panel-close" catchtap="hidePanel">
+        <text class="mp-inspector-panel-close-icon">✕</text>
+      </view>
+    </view>
+
+    <!-- 面板内容区 -->
+    <view class="mp-inspector-panel-body">
+      <console-panel wx:if="{{showConsole}}" visible="{{activeTab === 'console'}}" />
+      <network-panel wx:if="{{showNetwork}}" visible="{{activeTab === 'network'}}" />
+      <storage-panel wx:if="{{showStorage}}" visible="{{activeTab === 'storage'}}" />
+    </view>
+  </view>
+</view>

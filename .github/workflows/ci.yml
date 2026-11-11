@@ -1,0 +1,36 @@
+name: CI
+on:
+  push:
+    branches: [main, 'codex/**']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run package
+      - name: Package demo using the Full build
+        if: matrix.node == 24
+        run: |
+          npm run demo:sync -- full
+          zip -qr artifacts/mp-inspector-demo.zip demo
+          cd artifacts
+          sha256sum mp-inspector-demo.zip >> SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        if: matrix.node == 24
+        with:
+          name: mp-inspector-packages
+          path: artifacts/
+          if-no-files-found: error
+          retention-days: 14
